@@ -942,6 +942,11 @@ class TestOverallBehaviour:
         mod1.write_text("var = 17", encoding="utf-8")
         mod2.write_text("var = 781", encoding="utf-8")
         resource_file.write_text("resource 374", encoding="utf-8")
+        # Bump mtime so a rewrite in the same second as the first import
+        # cannot be masked by a stale .pyc (fork CI flake).
+        for _mod in (mod1, mod2):
+            _st = os.stat(_mod)
+            os.utime(_mod, (_st.st_atime + 2, _st.st_mtime + 2))
 
         out = venv.run(["python", "-c", dedent(cmd_get_vars)])
         assert "42 13" not in out

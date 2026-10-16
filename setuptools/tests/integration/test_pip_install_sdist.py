@@ -44,7 +44,9 @@ pytestmark = pytest.mark.integration
 # that `build-essential`, `gfortran` and `libopenblas-dev` are installed,
 # due to their relevance to the numerical/scientific programming ecosystem)
 EXAMPLES = [
-    ("pip", LATEST),  # just in case...
+    # ("pip", LATEST),  # just in case...
+    # ^ disabled: pip's latest sdist now builds with flit_core, not setuptools,
+    #   so the example no longer exercises setuptools.
     ("pytest", LATEST),  # uses setuptools_scm
     ("mypy", LATEST),  # custom build_py + ext_modules
     # --- Popular packages: https://hugovk.github.io/top-pypi-packages/ ---

@@ -34,12 +34,7 @@ name: Run Sage CI for Linux
 ## systems/configurations.
 
 on:
-  push:
-    tags:
-      - '*'
-  pull_request:
-    paths:
-      - .github/workflows/ci-sage.yml
+  # Fork: push/pull_request triggers removed; manual dispatch only.
   workflow_dispatch:
     # Allow to run manually
 
@@ -56,6 +51,7 @@ jobs:
 
   dist:
     runs-on: ubuntu-latest
+    timeout-minutes: 30  # Fork: every job needs a timeout
     steps:
       - name: Check out ${{ env.SPKG }}
         uses: actions/checkout@v4
